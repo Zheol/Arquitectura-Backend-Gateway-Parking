@@ -1,0 +1,14 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Zones {
+  id: Int!
+  name: String!
+  cant_estacionamientos_totales: Int!
+  cant_estacionamientos_ocupados: Int!
+}
+
+type Query {
+  zones: Zones!
+}
