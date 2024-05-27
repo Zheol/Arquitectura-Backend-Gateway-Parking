@@ -5,7 +5,7 @@
 type Zones {
   id: Int!
   name: String!
-  cant_estacionamientos_totales: Int!
+  cant_estacionamientos_totales: String
   cant_estacionamientos_ocupados: Int!
 }
 
