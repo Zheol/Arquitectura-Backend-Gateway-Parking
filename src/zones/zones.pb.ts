@@ -4,8 +4,8 @@ export interface Empty {
 export interface Zones {
     id: number;
     name: string;
-    cant_estacionamientos_totales: string;
-    cant_estacionamientos_ocupados: number;
+    cantEstacionamientosTotales: number;
+    cantEstacionamientosOcupados: number;
 }
 export interface ZonesServiceClient {
     findAll(request: Empty): Observable<Zones>;

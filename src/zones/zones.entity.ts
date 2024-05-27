@@ -6,8 +6,8 @@ export class Zones {
     id: number;
     @Field(type => String)
     name: string;
-    @Field(type => String, {nullable: true})
-    cant_estacionamientos_totales: string;
     @Field(type => Int)
-    cant_estacionamientos_ocupados: number;
+    cantEstacionamientosTotales: number;
+    @Field(type => Int)
+    cantEstacionamientosOcupados: number;
 }
