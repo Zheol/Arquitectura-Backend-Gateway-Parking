@@ -12,3 +12,13 @@ type Zones {
 type Query {
   zones: Zones!
 }
+
+type Mutation {
+  create(inputCreateZone: CreateZoneInput!): Boolean!
+}
+
+input CreateZoneInput {
+  name: String!
+  cantEstacionamientosTotales: String!
+  cantEstacionamientosOcupados: String!
+}

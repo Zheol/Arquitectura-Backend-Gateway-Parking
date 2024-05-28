@@ -1,9 +1,10 @@
-syntax = "proto3";
+/*syntax = "proto3";
 
 package zones;
 
 service ZonesService {
     rpc findAll (Empty) returns (Zones);
+    rpc createZone (CreateZoneRequest) returns (CreateZoneResponse);
 }
 
 message Empty {}
@@ -13,4 +14,48 @@ message Zones {
     string name = 2;
     int32 cantEstacionamientosTotales = 3;
     int32 cantEstacionamientosOcupados = 4;
+}
+
+message CreateZoneRequest {
+    string name = 1;
+    int32 cantEstacionamientosTotales = 2;
+    int32 cantEstacionamientosOcupados = 3;
+}
+
+message CreateZoneResponse {
+    bool success = 1;
+}
+message inputCreateZone {
+    string name = 1;
+    int32 cantEstacionamientosTotales = 2;
+    int32 cantEstacionamientosOcupados = 3;
+}*/
+syntax = "proto3";
+
+package zones;
+
+import "google/protobuf/wrappers.proto";
+
+service ZonesService {
+    rpc findAll (Empty) returns (Zones);
+    rpc create (inputCreateZone) returns (google.protobuf.BoolValue);
+}
+
+message Empty {}
+
+message Zones {
+    int32 id = 1;
+    string name = 2;
+    int32 cantEstacionamientosTotales = 3;
+    int32 cantEstacionamientosOcupados = 4;
+}
+
+message inputCreateZone {
+    string name = 1;
+    int32 cantEstacionamientosTotales = 2;
+    int32 cantEstacionamientosOcupados = 3;
+}
+
+message inputDeleteZone {
+    int32 id = 1;
 }
