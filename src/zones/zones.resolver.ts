@@ -33,7 +33,7 @@ export class ZonesResolver {
         cantEstacionamientosTotales: parseInt(inputCreateZone.cantEstacionamientosTotales),
         cantEstacionamientosOcupados: parseInt(inputCreateZone.cantEstacionamientosOcupados),
         };
-        console.log("a")
+        console.log("aa")
         const response: CreateZoneResponse = await firstValueFrom(this.zonesService.create(request));
         return response.success;
   }
