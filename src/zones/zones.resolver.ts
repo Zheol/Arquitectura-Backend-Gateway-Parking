@@ -2,9 +2,10 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Zones } from './zones.entity';
 import { Inject } from '@nestjs/common';
 import { ClientGrpcProxy } from '@nestjs/microservices';
-import { CreateZoneRequest, CreateZoneResponse, ZonesServiceClient } from './zones.pb';
+import { CreateZoneRequest, ZonesServiceClient } from './zones.pb';
 import { firstValueFrom } from 'rxjs';
 import { CreateZoneInput } from './dto/create-zone.input';
+import { createZoneResponse } from './createZoneResponse.entity';
 
 
 @Resolver()
@@ -26,15 +27,14 @@ export class ZonesResolver {
         
         return response;
     }
-    @Mutation(returns => Boolean)
-    async create(@Args('inputCreateZone') inputCreateZone: CreateZoneInput): Promise<boolean> {
+    @Mutation(returns => createZoneResponse)
+    async create(@Args('inputCreateZone') inputCreateZone: CreateZoneInput): Promise<createZoneResponse> {
         const request: CreateZoneRequest = {
         name: inputCreateZone.name,
         cantEstacionamientosTotales: parseInt(inputCreateZone.cantEstacionamientosTotales),
         cantEstacionamientosOcupados: parseInt(inputCreateZone.cantEstacionamientosOcupados),
         };
-        console.log("aa")
-        const response: CreateZoneResponse = await firstValueFrom(this.zonesService.create(request));
-        return response.success;
+        const response: createZoneResponse = await firstValueFrom(this.zonesService.create(request));
+        return response;
   }
 }

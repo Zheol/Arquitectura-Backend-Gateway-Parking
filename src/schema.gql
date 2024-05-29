@@ -9,12 +9,16 @@ type Zones {
   cantEstacionamientosOcupados: Int!
 }
 
+type createZoneResponse {
+  success: Boolean!
+}
+
 type Query {
   zones: Zones!
 }
 
 type Mutation {
-  create(inputCreateZone: CreateZoneInput!): Boolean!
+  create(inputCreateZone: CreateZoneInput!): createZoneResponse!
 }
 
 input CreateZoneInput {
