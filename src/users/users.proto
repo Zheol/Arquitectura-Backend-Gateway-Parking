@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/wrappers.proto";
+
+
+service UserService {
+  rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  // Define otros RPCs aquí si es necesario...
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string email = 2;
+  string password = 3;
+  bool tipoUser = 4;
+}
+
+message CreateUserResponse {
+  bool success = 1;
+  string message = 2;
+}

@@ -13,16 +13,28 @@ type createZoneResponse {
   success: Boolean!
 }
 
+type createUserResponse {
+  success: Boolean!
+}
+
 type Query {
   zones: Zones!
 }
 
 type Mutation {
   create(inputCreateZone: CreateZoneInput!): createZoneResponse!
+  createUser(createUserInput: CreateUserInput!): createUserResponse!
 }
 
 input CreateZoneInput {
   name: String!
   cantEstacionamientosTotales: String!
   cantEstacionamientosOcupados: String!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  tipoUser: Boolean! = false
 }
