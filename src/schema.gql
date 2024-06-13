@@ -17,6 +17,10 @@ type createUserResponse {
   success: Boolean!
 }
 
+type LoginUserResponse {
+  token: String!
+}
+
 type Query {
   zones: Zones!
 }
@@ -24,6 +28,7 @@ type Query {
 type Mutation {
   create(inputCreateZone: CreateZoneInput!): createZoneResponse!
   createUser(createUserInput: CreateUserInput!): createUserResponse!
+  login(loginUserInput: LoginUserInput!): LoginUserResponse!
 }
 
 input CreateZoneInput {
@@ -37,4 +42,9 @@ input CreateUserInput {
   email: String!
   password: String!
   tipoUser: Boolean! = false
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }

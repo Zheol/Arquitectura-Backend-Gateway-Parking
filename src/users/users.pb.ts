@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { Observable } from 'rxjs';
 
 export interface CreateUserRequest {
@@ -13,7 +12,19 @@ export interface CreateUserResponse {
   message: string;
 }
 
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
+}
+
 export interface UserServiceClient {
   createUser(request: CreateUserRequest): Observable<CreateUserResponse>;
+  login(request: LoginRequest): Observable<LoginResponse>;
   // Otros métodos...
 }

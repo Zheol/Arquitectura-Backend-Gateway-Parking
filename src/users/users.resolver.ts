@@ -2,9 +2,12 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Inject, OnModuleInit } from '@nestjs/common';
 import { ClientGrpcProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { CreateUserRequest, UserServiceClient } from './users.pb';
+import { CreateUserRequest, UserServiceClient, LoginRequest, LoginResponse } from './users.pb';
 import { CreateUserInput } from './dto/create-user.input';
 import { createUserResponse } from './createUserResponse.entity';
+import { LoginUserInput } from './dto/login-user.input';
+import { LoginUserResponse } from './loginUserResponse.entity';
+
 @Resolver()
 export class UsersResolver implements OnModuleInit {
   constructor(
@@ -28,5 +31,17 @@ export class UsersResolver implements OnModuleInit {
     };
     const response: createUserResponse = await firstValueFrom(this.userService.createUser(request));
     return response;
+  }
+
+  @Mutation(() => LoginUserResponse)
+  async login(@Args('loginUserInput') loginUserInput: LoginUserInput): Promise<LoginUserResponse> {
+    const request: LoginRequest = {
+      email: loginUserInput.email,
+      password: loginUserInput.password,
+    };
+    const response = await firstValueFrom(this.userService.login(request));
+    return {
+      token: response.token,
+    };
   }
 }
