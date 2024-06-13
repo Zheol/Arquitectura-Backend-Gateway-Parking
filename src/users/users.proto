@@ -4,9 +4,9 @@ package user;
 
 import "google/protobuf/wrappers.proto";
 
-
 service UserService {
   rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
+  rpc Login (LoginRequest) returns (LoginResponse); // Agregar esta línea
   // Define otros RPCs aquí si es necesario...
 }
 
@@ -20,4 +20,13 @@ message CreateUserRequest {
 message CreateUserResponse {
   bool success = 1;
   string message = 2;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
 }
