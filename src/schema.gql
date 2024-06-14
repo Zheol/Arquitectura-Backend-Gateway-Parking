@@ -29,6 +29,10 @@ type GetUserResponse {
   tipoUser: Boolean!
 }
 
+type createBookingResponse {
+  success: Boolean!
+}
+
 type Query {
   zones: Zones!
   getUser(getUserInput: GetUserInput!): GetUserResponse!
@@ -42,6 +46,7 @@ type Mutation {
   create(inputCreateZone: CreateZoneInput!): createZoneResponse!
   createUser(createUserInput: CreateUserInput!): createUserResponse!
   login(loginUserInput: LoginUserInput!): LoginUserResponse!
+  createBooking(createBookingInput: CreateBookingInput!): createBookingResponse!
 }
 
 input CreateZoneInput {
@@ -60,4 +65,11 @@ input CreateUserInput {
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input CreateBookingInput {
+  dateHourStart: String!
+  patente: String!
+  idZone: Float!
+  idUser: Float!
 }

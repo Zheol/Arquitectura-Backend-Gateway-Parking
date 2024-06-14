@@ -6,13 +6,13 @@ import {
 import { join } from 'path';
 
 
-export const clientProxyZones = (): ClientGrpcProxy => {
+export const clientProxyBookings = (): ClientGrpcProxy => {
     return ClientProxyFactory.create({
         transport: Transport.GRPC,
         options: {
-            url: '0.0.0.0:50052',
-            package: 'zones',
-            protoPath: join(__dirname, '../../../src/zones/zones.proto'),
+            url: '0.0.0.0:50051',
+            package: 'bookings',
+            protoPath: join(__dirname, '../../../src/bookings/bookings.proto'), 
         },
     });
 };
