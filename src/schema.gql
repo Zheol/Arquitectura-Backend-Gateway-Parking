@@ -21,8 +21,21 @@ type LoginUserResponse {
   token: String!
 }
 
+type GetUserResponse {
+  id: Float!
+  name: String!
+  email: String!
+  password: String!
+  tipoUser: Boolean!
+}
+
 type Query {
   zones: Zones!
+  getUser(getUserInput: GetUserInput!): GetUserResponse!
+}
+
+input GetUserInput {
+  id: Float!
 }
 
 type Mutation {
