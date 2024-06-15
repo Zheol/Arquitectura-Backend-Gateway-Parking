@@ -2,7 +2,7 @@ import { Args, Mutation, Resolver,Query } from '@nestjs/graphql';
 import { Inject, OnModuleInit } from '@nestjs/common';
 import { ClientGrpcProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { CreateUserRequest, UserServiceClient, LoginRequest, GetUserRequest } from './users.pb';
+import { CreateUserRequest, UserServiceClient, LoginRequest, GetUserRequest, DeleteUserRequest } from './users.pb';
 import { CreateUserInput } from './dto/create-user.input';
 import { createUserResponse } from './createUserResponse.entity';
 import { LoginUserInput } from './dto/login-user.input';
@@ -10,6 +10,8 @@ import { LoginUserResponse } from './loginUserResponse.entity';
 import { GetUserResponse } from './getUserResponse.entity';
 import { GetUserInput } from './dto/get-user.input';
 import Long from 'long';
+import { DeleteUserInput } from './dto/delete-user.input';
+import { DeleteUserResponse } from './deleteUserResponse.entity';
 @Resolver()
 export class UsersResolver implements OnModuleInit {
   constructor(
@@ -67,5 +69,11 @@ export class UsersResolver implements OnModuleInit {
       password: response.user.password,
       tipoUser: response.user.tipoUser,
     };
+  }
+  @Mutation(() => Boolean) // Retornamos un booleano indicando éxito
+  async deleteUser(@Args('deleteUserInput') deleteUserInput: DeleteUserInput): Promise<boolean> {
+    const request: DeleteUserRequest = { id: deleteUserInput.id };
+    await firstValueFrom(this.userService.deleteUser(request));
+    return true; // Retorna true si la operación fue exitosa
   }
 }

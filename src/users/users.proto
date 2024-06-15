@@ -8,6 +8,7 @@ service UserService {
   rpc CreateUser (CreateUserRequest) returns (CreateUserResponse);
   rpc Login (LoginRequest) returns (LoginResponse); // Agregar esta línea
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
   // Define otros RPCs aquí si es necesario...
 }
 message User {
@@ -49,3 +50,8 @@ message GetUserResponse {
   User user = 1;
 }
 
+message DeleteUserRequest {
+  uint64 id = 1;
+}
+
+message DeleteUserResponse {}

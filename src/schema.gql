@@ -46,6 +46,7 @@ type Mutation {
   create(inputCreateZone: CreateZoneInput!): createZoneResponse!
   createUser(createUserInput: CreateUserInput!): createUserResponse!
   login(loginUserInput: LoginUserInput!): LoginUserResponse!
+  deleteUser(deleteUserInput: DeleteUserInput!): Boolean!
   createBooking(createBookingInput: CreateBookingInput!): createBookingResponse!
 }
 
@@ -65,6 +66,10 @@ input CreateUserInput {
 input LoginUserInput {
   email: String!
   password: String!
+}
+
+input DeleteUserInput {
+  id: Float!
 }
 
 input CreateBookingInput {
