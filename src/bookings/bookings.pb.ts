@@ -1,14 +1,16 @@
 import { Observable } from "rxjs";
+import { Zones } from "src/zones/zones.pb";
 export interface Empty {
 }
 export interface Bookings {
     id: number;
-    dateHourStart: Date;
-    dateHourFinish: Date;
+    dateHourStart: string;
+    dateHourFinish: string;
     status: string;
     patente: string;
     idZone: number;
     idUser: number;
+    zone?: Zones;
 }
 
 export interface inputCreateBooking {
@@ -26,9 +28,18 @@ export interface inputFindOneBooking {
     id: number;
 }
 
+export interface arrayBookings {
+    bookings: Bookings[];
+}
+
+
+
+
 export interface BookingsServiceClient {
-    findAll(request: Empty): Observable<Bookings>;
+    findAll(request: Empty): Observable<arrayBookings>;
     create(request: inputCreateBooking): Observable<createBookingResponse>;
+    findOne(request: inputFindOneBooking): Observable<Bookings>;
+    findAllByUser(request: inputFindOneBooking): Observable<arrayBookings>;
 }
 
 export interface ZonesServiceClient {

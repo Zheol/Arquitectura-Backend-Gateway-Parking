@@ -7,10 +7,13 @@ export interface Zones {
     cantEstacionamientosTotales: number;
     cantEstacionamientosOcupados: number;
 }
-
+export interface inputFindOne {
+    id: number;
+}
 export interface ZonesServiceClient {
     create(request: CreateZoneRequest): Observable<CreateZoneResponse>;
-    findAll(request: Empty): Observable<Zones>;
+    findAll(request: Empty): Observable<arrayZones>;
+    findOne(request: inputFindOne): Observable<Zones>;
 }
 
 export interface CreateZoneRequest {
@@ -20,3 +23,7 @@ export interface CreateZoneRequest {
 export interface CreateZoneResponse {
     success: boolean;
 }
+export interface arrayZones {
+    zones: Zones[];
+}
+

@@ -13,6 +13,10 @@ type createZoneResponse {
   success: Boolean!
 }
 
+type arrayZones {
+  zones: [Zones!]!
+}
+
 type createUserResponse {
   success: Boolean!
 }
@@ -33,9 +37,28 @@ type createBookingResponse {
   success: Boolean!
 }
 
+type Bookings {
+  id: Int!
+  dateHourStart: String
+  dateHourFinish: String
+  status: String!
+  patente: String!
+  idZone: Int!
+  idUser: Int!
+  zone: Zones
+}
+
+type arrayBookings {
+  bookings: [Bookings!]!
+}
+
 type Query {
-  zones: Zones!
+  findAllZones: arrayZones!
+  findOneZone(id: Float!): Zones!
   getUser(getUserInput: GetUserInput!): GetUserResponse!
+  findOneBooking(id: Float!): Bookings!
+  findAllBookings: arrayBookings!
+  findAllBookingsByUser(id: Float!): arrayBookings!
 }
 
 input GetUserInput {

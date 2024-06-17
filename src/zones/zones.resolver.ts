@@ -6,6 +6,8 @@ import { CreateZoneRequest, ZonesServiceClient } from './zones.pb';
 import { firstValueFrom } from 'rxjs';
 import { CreateZoneInput } from './dto/create-zone.input';
 import { createZoneResponse } from './createZoneResponse.entity';
+import { arrayZones } from './arrayZones.entity';
+import { findOneInput } from './dto/findOne.input';
 
 
 @Resolver()
@@ -21,10 +23,9 @@ export class ZonesResolver {
             this.zonesServiceClient.getService<ZonesServiceClient>('ZonesService');
     }
 
-    @Query(returns => Zones)
-    async zones(): Promise<Zones> {
-        const response: Zones = await firstValueFrom(this.zonesService.findAll({}));
-        
+    @Query(returns => arrayZones)
+    async findAllZones(): Promise<arrayZones> {
+        const response = await firstValueFrom(this.zonesService.findAll({}));
         return response;
     }
     @Mutation(returns => createZoneResponse)
@@ -36,4 +37,11 @@ export class ZonesResolver {
         const response: createZoneResponse = await firstValueFrom(this.zonesService.create(request));
         return response;
   }
+
+  @Query(returns => Zones)
+    async findOneZone(@Args('id') id: number): Promise<Zones> {
+        const input: findOneInput = { id };
+        const response = await firstValueFrom(this.zonesService.findOne(input));
+        return response;
+    }
 }
