@@ -5,9 +5,6 @@ export class CreateZoneInput{
     @Field()
     name: string;
     @Field()
-    cantEstacionamientosTotales: string;
-    @Field()
-    cantEstacionamientosOcupados:string;
-   
+    cantEstacionamientosTotales: string;   
     
 }

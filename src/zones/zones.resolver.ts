@@ -32,7 +32,6 @@ export class ZonesResolver {
         const request: CreateZoneRequest = {
         name: inputCreateZone.name,
         cantEstacionamientosTotales: parseInt(inputCreateZone.cantEstacionamientosTotales),
-        cantEstacionamientosOcupados: parseInt(inputCreateZone.cantEstacionamientosOcupados),
         };
         const response: createZoneResponse = await firstValueFrom(this.zonesService.create(request));
         return response;

@@ -16,7 +16,6 @@ export interface ZonesServiceClient {
 export interface CreateZoneRequest {
     name: string;
     cantEstacionamientosTotales: number;
-    cantEstacionamientosOcupados: number;
 }
 export interface CreateZoneResponse {
     success: boolean;

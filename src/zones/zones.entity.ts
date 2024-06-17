@@ -8,6 +8,6 @@ export class Zones {
     name: string;
     @Field(type => Int)
     cantEstacionamientosTotales: number;
-    @Field(type => Int)
+    @Field(type => Int, {defaultValue: 0})
     cantEstacionamientosOcupados: number;
 }
