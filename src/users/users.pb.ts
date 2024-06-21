@@ -58,10 +58,16 @@ export interface DeleteUserResponse {
   success: boolean;
 }
 
+export interface GetUsersRequest {}
+
+export interface GetUsersResponse {
+  users: User[];
+}
 export interface UserServiceClient {
   createUser(request: CreateUserRequest): Observable<CreateUserResponse>;
   login(request: LoginRequest): Observable<LoginResponse>;
   getUser(request: GetUserRequest): Observable<GetUserResponse>;
   deleteUser(request: DeleteUserRequest): Observable<DeleteUserResponse>;
+  getUsers(request: GetUsersRequest): Observable<GetUsersResponse>;
   // Otros métodos...
 }

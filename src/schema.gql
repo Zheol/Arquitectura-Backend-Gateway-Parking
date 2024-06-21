@@ -33,6 +33,18 @@ type GetUserResponse {
   tipoUser: Boolean!
 }
 
+type User {
+  id: Int!
+  name: String!
+  email: String!
+  password: String!
+  tipoUser: Boolean!
+}
+
+type GetUsersResponse {
+  users: [User!]!
+}
+
 type createBookingResponse {
   success: Boolean!
 }
@@ -56,6 +68,7 @@ type Query {
   findAllZones: arrayZones!
   findOneZone(id: Float!): Zones!
   getUser(getUserInput: GetUserInput!): GetUserResponse!
+  getUsers: GetUsersResponse!
   findOneBooking(id: Float!): Bookings!
   findAllBookings: arrayBookings!
   findAllBookingsByUser(id: Float!): arrayBookings!

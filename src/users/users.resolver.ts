@@ -2,16 +2,17 @@ import { Args, Mutation, Resolver,Query } from '@nestjs/graphql';
 import { Inject, OnModuleInit } from '@nestjs/common';
 import { ClientGrpcProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { CreateUserRequest, UserServiceClient, LoginRequest, GetUserRequest, DeleteUserRequest } from './users.pb';
+import { CreateUserRequest, UserServiceClient, LoginRequest, GetUserRequest, DeleteUserRequest, GetUsersRequest } from './users.pb';
 import { CreateUserInput } from './dto/create-user.input';
 import { createUserResponse } from './createUserResponse.entity';
 import { LoginUserInput } from './dto/login-user.input';
 import { LoginUserResponse } from './loginUserResponse.entity';
 import { GetUserResponse } from './getUserResponse.entity';
 import { GetUserInput } from './dto/get-user.input';
-import Long from 'long';
+
 import { DeleteUserInput } from './dto/delete-user.input';
-import { DeleteUserResponse } from './deleteUserResponse.entity';
+import { GetUsersResponse } from './getUsersResponse.entity';
+
 @Resolver()
 export class UsersResolver implements OnModuleInit {
   constructor(
@@ -75,5 +76,21 @@ export class UsersResolver implements OnModuleInit {
     const request: DeleteUserRequest = { id: deleteUserInput.id };
     await firstValueFrom(this.userService.deleteUser(request));
     return true; // Retorna true si la operación fue exitosa
+  }
+  @Query(() => GetUsersResponse)
+  async getUsers(): Promise<GetUsersResponse> {
+    const request: GetUsersRequest = {};
+    const response = await firstValueFrom(this.userService.getUsers(request));
+
+    // Map response users to User entity
+    const users = response.users.map(user => ({
+      id: Number(user.id), // Ensure id is a number
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      tipoUser: user.tipoUser ?? false, // Ensure tipoUser is not null
+    }));
+
+    return { users };
   }
 }
