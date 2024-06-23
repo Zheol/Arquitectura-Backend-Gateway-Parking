@@ -19,4 +19,6 @@ export class Bookings {
     idUser: number;
     @Field(type => Zones, {nullable: true})
     zone?: Zones;
+    @Field(type => Int, {nullable: true})
+    amount?: number;
 }

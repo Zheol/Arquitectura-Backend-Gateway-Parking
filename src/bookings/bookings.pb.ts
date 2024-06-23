@@ -10,6 +10,7 @@ export interface Bookings {
     patente: string;
     idZone: number;
     idUser: number;
+    amount?: number;
     zone?: Zones;
 }
 
@@ -32,6 +33,11 @@ export interface arrayBookings {
     bookings: Bookings[];
 }
 
+export interface inputCheckOutBooking {
+    id: number;
+    dateHourFinish: string;
+}
+
 
 
 
@@ -40,6 +46,7 @@ export interface BookingsServiceClient {
     create(request: inputCreateBooking): Observable<createBookingResponse>;
     findOne(request: inputFindOneBooking): Observable<Bookings>;
     findAllByUser(request: inputFindOneBooking): Observable<arrayBookings>;
+    checkOut(request: inputCheckOutBooking): Observable<Bookings>;
 }
 
 export interface ZonesServiceClient {

@@ -58,6 +58,7 @@ type Bookings {
   idZone: Int!
   idUser: Int!
   zone: Zones
+  amount: Int
 }
 
 type arrayBookings {
@@ -84,6 +85,7 @@ type Mutation {
   login(loginUserInput: LoginUserInput!): LoginUserResponse!
   deleteUser(deleteUserInput: DeleteUserInput!): Boolean!
   createBooking(createBookingInput: CreateBookingInput!): createBookingResponse!
+  checkOutBooking(id: Float!, dateHourFinish: String!): Bookings!
 }
 
 input CreateZoneInput {

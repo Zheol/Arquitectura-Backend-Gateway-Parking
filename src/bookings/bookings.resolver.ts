@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { ClientGrpcProxy } from '@nestjs/microservices';
-import { BookingsServiceClient, inputCreateBooking, inputFindOneBooking } from './bookings.pb';
+import { BookingsServiceClient, inputCheckOutBooking, inputCreateBooking, inputFindOneBooking } from './bookings.pb';
 import { createBookingResponse } from './dto/createBookingResponse.entity';
 import { CreateBookingInput } from './dto/create-booking.input';
 import { firstValueFrom } from 'rxjs';
@@ -53,6 +53,14 @@ export class BookingsResolver {
     async findAllBookingsByUser(@Args('id') id: number): Promise<arrayBookings> {
         const request: inputFindOneBooking = { id };
         const response = await firstValueFrom(this.bookingsService.findAllByUser(request));
+        console.log(response);
+        return response;
+    }
+
+    @Mutation(returns => Bookings)
+    async checkOutBooking(@Args('id') id: number, @Args('dateHourFinish') dateHourFinish: string): Promise<Bookings> {
+        const request: inputCheckOutBooking = { id, dateHourFinish };
+        const response = await firstValueFrom(this.bookingsService.checkOut(request));
         console.log(response);
         return response;
     }
