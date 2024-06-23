@@ -14,6 +14,12 @@ export interface Bookings {
     zone?: Zones;
 }
 
+export interface checkOutBookingResponse {
+    success: boolean;
+    message?: string;
+    booking?: Bookings;
+}
+
 export interface inputCreateBooking {
     dateHourStart: string;
     patente: string;
@@ -23,6 +29,7 @@ export interface inputCreateBooking {
 
 export interface createBookingResponse {
     success: boolean;
+    message?: string;
 }
 
 export interface inputFindOneBooking {
@@ -46,7 +53,7 @@ export interface BookingsServiceClient {
     create(request: inputCreateBooking): Observable<createBookingResponse>;
     findOne(request: inputFindOneBooking): Observable<Bookings>;
     findAllByUser(request: inputFindOneBooking): Observable<arrayBookings>;
-    checkOut(request: inputCheckOutBooking): Observable<Bookings>;
+    checkOut(request: inputCheckOutBooking): Observable<checkOutBookingResponse>;
 }
 
 export interface ZonesServiceClient {

@@ -7,6 +7,7 @@ import { CreateBookingInput } from './dto/create-booking.input';
 import { firstValueFrom } from 'rxjs';
 import { Bookings } from './bookings.entity';
 import { arrayBookings } from './arrayBookings.entity';
+import { checkOutBookingResponse } from './dto/checkout.entity';
 
 
 @Resolver()
@@ -57,8 +58,8 @@ export class BookingsResolver {
         return response;
     }
 
-    @Mutation(returns => Bookings)
-    async checkOutBooking(@Args('id') id: number, @Args('dateHourFinish') dateHourFinish: string): Promise<Bookings> {
+    @Mutation(returns => checkOutBookingResponse)
+    async checkOutBooking(@Args('id') id: number, @Args('dateHourFinish') dateHourFinish: string): Promise<checkOutBookingResponse> {
         const request: inputCheckOutBooking = { id, dateHourFinish };
         const response = await firstValueFrom(this.bookingsService.checkOut(request));
         console.log(response);

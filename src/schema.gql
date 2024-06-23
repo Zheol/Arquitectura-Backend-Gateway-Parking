@@ -47,6 +47,7 @@ type GetUsersResponse {
 
 type createBookingResponse {
   success: Boolean!
+  message: String
 }
 
 type Bookings {
@@ -63,6 +64,12 @@ type Bookings {
 
 type arrayBookings {
   bookings: [Bookings!]!
+}
+
+type checkOutBookingResponse {
+  success: Boolean!
+  message: String
+  booking: Bookings
 }
 
 type Query {
@@ -85,7 +92,7 @@ type Mutation {
   login(loginUserInput: LoginUserInput!): LoginUserResponse!
   deleteUser(deleteUserInput: DeleteUserInput!): Boolean!
   createBooking(createBookingInput: CreateBookingInput!): createBookingResponse!
-  checkOutBooking(id: Float!, dateHourFinish: String!): Bookings!
+  checkOutBooking(id: Float!, dateHourFinish: String!): checkOutBookingResponse!
 }
 
 input CreateZoneInput {
