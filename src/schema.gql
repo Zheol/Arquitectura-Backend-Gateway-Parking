@@ -93,6 +93,7 @@ type Mutation {
   deleteUser(deleteUserInput: DeleteUserInput!): Boolean!
   createBooking(createBookingInput: CreateBookingInput!): createBookingResponse!
   checkOutBooking(id: Float!, dateHourFinish: String!): checkOutBookingResponse!
+  confirmBooking(id: Float!): checkOutBookingResponse!
 }
 
 input CreateZoneInput {

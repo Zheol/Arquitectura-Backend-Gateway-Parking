@@ -46,7 +46,6 @@ export class BookingsResolver {
     async findAllBookings(): Promise<arrayBookings> {
         const request = {};
         const response = await firstValueFrom(this.bookingsService.findAll(request));
-        console.log(response);
         return response;
     }
 
@@ -54,7 +53,6 @@ export class BookingsResolver {
     async findAllBookingsByUser(@Args('id') id: number): Promise<arrayBookings> {
         const request: inputFindOneBooking = { id };
         const response = await firstValueFrom(this.bookingsService.findAllByUser(request));
-        console.log(response);
         return response;
     }
 
@@ -62,7 +60,13 @@ export class BookingsResolver {
     async checkOutBooking(@Args('id') id: number, @Args('dateHourFinish') dateHourFinish: string): Promise<checkOutBookingResponse> {
         const request: inputCheckOutBooking = { id, dateHourFinish };
         const response = await firstValueFrom(this.bookingsService.checkOut(request));
-        console.log(response);
+        return response;
+    }
+
+    @Mutation(returns => checkOutBookingResponse)
+    async confirmBooking(@Args('id') id: number): Promise<checkOutBookingResponse> {
+        const request: inputFindOneBooking = { id };
+        const response = await firstValueFrom(this.bookingsService.confirmBooking(request));
         return response;
     }
 

@@ -54,6 +54,7 @@ export interface BookingsServiceClient {
     findOne(request: inputFindOneBooking): Observable<Bookings>;
     findAllByUser(request: inputFindOneBooking): Observable<arrayBookings>;
     checkOut(request: inputCheckOutBooking): Observable<checkOutBookingResponse>;
+    confirmBooking(request: inputFindOneBooking): Observable<checkOutBookingResponse>;
 }
 
 export interface ZonesServiceClient {
