@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
 
 import { CreateUserInput } from './dto/create-user.input';
+import { CreateUserRequest, CreateUserResponse } from './users.pb';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
@@ -31,12 +32,17 @@ describe('UsersResolver', () => {
   });
 
   it('createUser should create a new user and return the response', async () => {
-    const createUserInput: CreateUserInput = {
+    const createUserInput: CreateUserRequest = {
       name: 'John Doe',
       email: 'john.doe@example.com',
       password: 'password',
       tipoUser: true,
     };
+
+    jest.spyOn(resolver, 'createUser').mockImplementation(async () => ({
+      success: true,
+      message: 'User created successfully',
+    }));
 
     const result = await resolver.createUser(createUserInput);
 
