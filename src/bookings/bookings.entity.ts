@@ -1,5 +1,5 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Zones } from "src/zones/zones.entity";
+import { Zones } from "../zones/zones.entity";
 
 @ObjectType()
 export class Bookings {

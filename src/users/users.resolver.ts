@@ -71,24 +71,24 @@ export class UsersResolver implements OnModuleInit {
       tipoUser: response.user.tipoUser,
     };
   }
-  @Mutation(() => Boolean) // Retornamos un booleano indicando éxito
+  @Mutation(() => Boolean) 
   async deleteUser(@Args('deleteUserInput') deleteUserInput: DeleteUserInput): Promise<boolean> {
     const request: DeleteUserRequest = { id: deleteUserInput.id };
     await firstValueFrom(this.userService.deleteUser(request));
-    return true; // Retorna true si la operación fue exitosa
+    return true; 
   }
   @Query(() => GetUsersResponse)
   async getUsers(): Promise<GetUsersResponse> {
     const request: GetUsersRequest = {};
     const response = await firstValueFrom(this.userService.getUsers(request));
 
-    // Map response users to User entity
+    
     const users = response.users.map(user => ({
-      id: Number(user.id), // Ensure id is a number
+      id: Number(user.id),
       name: user.name,
       email: user.email,
       password: user.password,
-      tipoUser: user.tipoUser ?? false, // Ensure tipoUser is not null
+      tipoUser: user.tipoUser ?? false, 
     }));
 
     return { users };
