@@ -1,4 +1,8 @@
-import { ClientGrpcProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
+import {
+  ClientGrpcProxy,
+  ClientProxyFactory,
+  Transport,
+} from '@nestjs/microservices';
 import { join } from 'path';
 
 export const clientProxyUsers = (): ClientGrpcProxy => {
