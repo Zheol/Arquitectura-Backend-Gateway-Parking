@@ -1,9 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
 
-
-import { CreateUserRequest, GetUserResponse, LoginRequest, LoginResponse } from './users.pb';
+import { DeleteUserInput } from './dto/delete-user.input';
+import { CreateUserRequest, LoginRequest, LoginResponse } from './users.pb';
+import { GetUserResponse } from './getUserResponse.entity';
 import { GetUserInput } from './dto/get-user.input';
+import { User } from './users.entity';
+
+
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
@@ -20,6 +24,8 @@ describe('UsersResolver', () => {
               createUser: jest.fn(),
               login: jest.fn(),
               getService: jest.fn(),
+              deleteUser: jest.fn(),
+              getServices: jest.fn(),
             }),
           },
         },
@@ -79,25 +85,74 @@ describe('UsersResolver', () => {
     const getUserInput: GetUserInput = { id: 5 }; 
 
     const mockGetUserResponse: GetUserResponse = {
-      user: {
+      
         id: 5, 
         name: 'Marcelo',
         email: 'Marcelo1@gmail.com',
         password: '$2a$10$vooHCdu.uFuFY5HBkxHxnOgHIFVXoGWmH/Lz.l0MXiMAjX3BmNyAu',
         tipoUser: true,
-        created_at: '2022-01-01T00:00:00Z',
-        updated_at: '2022-01-02T00:00:00Z',
-        deleted_at: '',
-      },
+        
+      
     };
-
-    // Simular la implementación de la función getUser del resolver
-    jest.spyOn(resolver, 'getUser').mockImplementation(async (getUserInput: GetUserInput) => {
-      return mockGetUserResponse; // Retornar directamente el objeto mockGetUserResponse
+    jest.spyOn(resolver, 'getUser').mockResolvedValue({
+      id: mockGetUserResponse.id,
+      name: mockGetUserResponse.name,
+      email: mockGetUserResponse.email,
+      password: mockGetUserResponse.password,
+      tipoUser: mockGetUserResponse.tipoUser,
     });
+    
 
     const result = await resolver.getUser(getUserInput);
 
-    expect(result).toEqual(mockGetUserResponse);
+    expect(result).toEqual({
+      id: mockGetUserResponse.id,
+      name: mockGetUserResponse.name,
+      email: mockGetUserResponse.email,
+      password: mockGetUserResponse.password,
+      tipoUser: mockGetUserResponse.tipoUser,
+    });
+  });
+
+
+  it('deleteUser Success', async () => {
+    const deleteUserInput: DeleteUserInput = { id: 5 }; 
+
+    
+    jest.spyOn(resolver, 'deleteUser').mockResolvedValue(true);
+
+    const result = await resolver.deleteUser(deleteUserInput);
+
+    expect(result).toEqual(true);
+  });
+
+  it('getUsers should return list of users', async () => {
+    
+    const mockUsers: User[] = [
+      {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        password: 'hashedpassword',
+        tipoUser: true,
+        
+      },
+      {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane.smith@example.com',
+        password: 'anotherhashedpassword',
+        tipoUser: false,
+        
+      },
+    ];
+
+    
+    jest.spyOn(resolver, 'getUsers').mockResolvedValue({ users: mockUsers });
+
+    const result = await resolver.getUsers();
+
+    
+    expect(result).toEqual({ users: mockUsers });
   });
 });
